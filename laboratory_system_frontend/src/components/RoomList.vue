@@ -8,7 +8,8 @@
     </h1>
     <room-add-form v-if="add_mode" @cancel_add="cancel_add" @add_item="add_item"/>
     <table class="components-list">
-        <tr>
+    <thead>
+        <tr class="table-header">
             <th class="head">
                 Наименование
             </th>
@@ -16,6 +17,7 @@
                 Примечание
             </th>
           </tr>
+        </thead>
         <room-component
                 v-for="item in items"
                     :id="item.id"
@@ -108,23 +110,4 @@ import RoomAddForm from './RoomAddForm.vue';
         }
     }
 </script>
-
-<style scoped>
-div {
-    text-align: center;
-    text-decoration: none;
-    letter-spacing: 2px;
-    font-size: 17px;
-    transition: color .2s;
-}
-
-td {
-	padding: 10px;
-	font-size: 14px;
-	line-height: 10px;
-	color: #444441;
-	border-top: 1px solid #716561;
-}
-
-</style>
 

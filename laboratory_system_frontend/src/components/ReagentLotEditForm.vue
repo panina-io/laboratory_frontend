@@ -19,47 +19,55 @@
                 <div class="modal-body">
                     <form id="EditForm">
                         <div class="input-text">
-                        <input class="input-style" v-model="item.box_data.lot" disabled />
                         <label class="edit_component">Лот</label>
+                        <input class="input-style" v-model="item.box_data.lot" disabled />
+
                     </div>
 
                     <div class="input-text">
-                       <input class="input-style" v-model="item.box_data.indicator_name" :key="tmp" disabled />
                         <label class="edit_component">Показатель</label>
+                       <input class="input-style" v-model="item.box_data.indicator_name" :key="tmp" disabled />
+
                     </div>
 
                     <div class="input-text">
-                       <input class="input-style" v-model="item.box_data.manufacturer_name" :key="tmp" disabled />
                         <label class="edit_component">Производитель</label>
+                        <input class="input-style" v-model="item.box_data.manufacturer_name" :key="tmp" disabled />
                     </div>
                     
                     <div class="input-text">
-                       <input class="input-style" v-model="item.box_data.analyzer_name" :key="tmp" disabled />
                         <label class="edit_component">Анализатор</label>
+                       <input class="input-style" v-model="item.box_data.analyzer_name" :key="tmp" disabled />
                     </div>
 
                     <div class="input-text">
-                       <input class="input-style" v-model="item.box_data.financing_name" :key="tmp" disabled />
                         <label class="edit_component">Источник финансирования</label>
+                       <input class="input-style" v-model="item.box_data.financing_name" :key="tmp" disabled />
+
                     </div>
 
                     
                     <div class="input-text">
+                        <label class="edit_component">Состояние</label>
                         <input class="input-style" v-model="item.move_name" :key="tmp" disabled />
-                     <label class="edit_component">Состояние</label>
+
                     </div>
 
                     <div class="input-text">
-                       <input class="input-style" v-model="item.box_data.balance" :key="tmp" disabled />
                         <label class="edit_component">Количество</label>
+                       <input class="input-style" v-model="item.box_data.balance" :key="tmp" disabled />
+
                     </div>
 
                     <div class="input-text">
-                       <input class="input-style" v-model="item.box_data.expiration_date" :key="tmp" disabled  :style="getRowStyle(item.box_data.expiration_date)"/>
                         <label class="edit_component">Срок годности</label>
+                       <input class="input-style" v-model="item.box_data.expiration_date" :key="tmp" disabled  :style="getRowStyle(item.box_data.expiration_date)"/>
+
                     </div>
 
                     <div class="input-text">
+                        <label v-if="isExpenditureValid" class="edit_component">Расход</label>
+                        <label v-else class="edit_component">Недопустимое значение. Введите число от 0 до {{ item.box_data.balance }}.</label>
                         <input
                             class="input-style"
                             type="number"
@@ -68,24 +76,26 @@
                             v-model="new_expenditure"
                             @input="onExpenditureChange"
                         />
-                        <label v-if="isExpenditureValid" class="edit_component">Расход</label>
-                        <label v-else class="edit_component">Недопустимое значение. Введите число от 0 до {{ item.box_data.balance }}.</label>
+
                     </div>
 
               <div class="input-text">
+                <label class="edit_component">Холодильник</label>
                 <select 
                     v-model="new_sink" 
                     class="input-style" 
                     required>
                         <technic-variants name="refrigerators" :selected="item.sink" />
                 </select>
-                <label class="edit_component">Холодильник</label>
+
               </div>
 
               <div class="input-text">
-                <input class="input-style" v-model.lazy.trim="new_note" />
                 <label class="edit_component">Комментарий</label>
+                <input class="input-style" v-model.lazy.trim="new_note" />
+
               </div>
+              <div class="footer-btn">
                     <button 
                         type="button"
                         form="EditForm"
@@ -100,6 +110,7 @@
                         form="EditForm"
                         title="Отменить"
                         @click="onCancel">Отмена</button>
+                </div>
                     </form> 
                 </div>
             </div>
@@ -184,3 +195,14 @@ import dayjs from 'dayjs'
         }
     }
 </script>
+
+<style scoped>
+
+    .footer-btn{
+        display: flex;          
+        gap: 10px;             
+        align-items: center;   
+        flex-wrap: wrap; 
+    }
+
+</style>

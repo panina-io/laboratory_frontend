@@ -51,55 +51,76 @@
   </script>
   
   <style scoped>
-  .username 
-  {
-    color: #ffffff;
-    font-weight: bolder;
-    letter-spacing: 2px;
-    font-size: 9px;
-    text-transform: uppercase;
-    transition: color .2s;
-  }
+  .username {
+  color: #ffffff;
+  font-weight: bolder;
+  letter-spacing: 2px;
+  font-size: 9px;
+  text-transform: uppercase;
+  transition: color .2s;
+  display: inline-block;
+  vertical-align: middle;
+}
 
-  .out 
-  {
-    position: absolute; 
-    right: 0; 
-  }
+.out {
+  position: relative;
+  display: inline-block;
+  padding-left: 15px;
+  margin-left: 15px;
+}
 
-  .dropbtn {
-    display: inline-block;
-    color: white;
-    text-align: center;
-    padding: 14px 16px;
-    text-decoration: none;
-  }
+.out::before {
+  content: "|";
+  position: absolute;
+  left: 0;
+  color: rgba(255, 255, 255, 0.3);
+}
 
-  .dropdown {
-    display: inline-block;
-  }
+/* Исправленные стили для выпадающего меню */
+.dropdown {
+  display: inline-block;
+  position: relative;
+}
 
-  .dropdown-content {
-    display: none;
-    position: absolute;
-    background-color: #f9f9f9;
-    min-width: none;
-    box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
-    border-radius: 2px;
-  }
+.dropdown > a {
+  color: white;
+  text-align: center;
+  padding: 14px 16px;
+  text-decoration: none;
+  display: inline-block;
+  cursor: pointer;
+}
 
-  .dropdown-content a {
-    color: rgb(0, 0, 0);
-    padding: 10px;
-    text-decoration: none;
-    display: block;
-    text-align: left;
-  }
+.dropdown-content {
+  display: none;
+  position: absolute;
+  left: 0; /* Изменил с right на left для правильного выравнивания */
+  background-color: #f9f9f9;
+  min-width: 160px;
+  box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+  border-radius: 2px;
+  z-index: 1000; /* Увеличил для надежности */
+}
 
-  .dropdown-content a:hover {background-color: #f1f1f1}
+.dropdown-content a {
+  color: black;
+  padding: 10px;
+  text-decoration: none;
+  display: block;
+  text-align: left;
+  font-size: 12px;
+}
 
-  .dropdown:hover .dropdown-content {
-    display: block;
-  }
+.dropdown-content a:hover {
+  background-color: #f1f1f1;
+}
 
-</style> 
+/* Главное исправление - правильные селекторы для hover */
+.dropdown:hover .dropdown-content {
+  display: block;
+}
+
+.dropdown:hover > a {
+  background-color: rgba(255, 255, 255, 0.1);
+}
+</style>

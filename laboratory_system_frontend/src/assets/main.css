@@ -1,197 +1,159 @@
 @import './base.css';
 
+:root {
+  --primary-color: #9a2a2a; /* Новый насыщенный бордовый */
+  --primary-hover: #c0392b; /* Яркий hover-эффект */
+  --secondary-color: #34495e; /* Новый цвет для текста */
+  --light-gray: #f8f9fa;
+  --border-color: #dfe6e9;
+  --text-color: #2d3436;
+  --white: #ffffff;
+  --transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+  --shadow: 0 1px 3px rgba(0,0,0,0.12), 0 1px 2px rgba(0,0,0,0.24);
+  --shadow-hover: 0 14px 28px rgba(0,0,0,0.10), 0 10px 10px rgba(0,0,0,0.08);
+}
+
+/* ===== Основные стили ===== */
 #app {
   width: 100%;
-  margin: auto;
+  max-width: 1400px;
+  margin: 0 auto;
   padding: 1rem;
   font-weight: normal;
+  font-family: 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
 }
 
-a,
-.green {
-  text-decoration: none;
-  color: rgb(255, 255, 255);
-  transition: 0.4s;
-  padding: 3px;
+/* ===== Таблица ===== */
+.section-name {
+  font-size: 30px;
+  color: var(--primary-color);
+  margin-bottom: 10px;
+  font-weight: 600;
+  position: relative;
+  padding-bottom: 10px;
 }
 
-@media (hover: hover) {
-  a:hover {
-    background-color: hsla(0, 0%, 44%, 0.037);
-  }
-}
-/*Название табицы*/
-.section-name{
-  text-align: left;
-  font-size: 20px;
-  color: #7d1212db;
+.section-name::after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 60px;
+  height: 3px;
+  background: var(--primary-color);
 }
 
 .components-list {
-width: 100%;
-border: none;
-margin-bottom: 20px;
-border-collapse: collapse;
+  width: 100%;
+  border-collapse: collapse;
+  margin-bottom: 2rem;
+  box-shadow: var(--shadow);
+  border-radius: 8px;
+  overflow: hidden;
 }
 
-/*таблица*/
 .head {
-	padding: 10px;
-	font-size: 16px;
-	text-align: center;
-  line-height: 10px;
-	color: #ffffff;
-	border-top: 2px solid #7d1212db;
-  background-color: #7d1212db;
+  padding: 10px;
+  font-size: 14px;
+  text-align: center;
+  color: var(--white);
+  color: #3d3d3d;
+  font-weight: 500;
+
 }
 
 .head-filter {
-	padding: 5px;
-	font-size: 16px;
-	text-align: center;
-  line-height: 10px;
-	color: #ffffff;
-	border-top: 2px solid #7d1212db;
-  background-color: #f1f1f1ed;
+  padding: 5px;
+  background-color: var(--light-gray);
+  border-bottom: 1px solid var(--border-color);
 }
 
-/*меню*/
-.menu-main {
-  background-color: #7d1212db;
-  margin: auto;
-  padding: 10px 15px;
-  width: 100%;
-}
-.menu-main li {display: inline-block;}
-
-
-.menu-main a {
-  text-decoration: none;
-  letter-spacing: 2px;
-  position: relative;
-  padding-bottom: 5px;
-  margin: 0 34px 0 30px;
+.components-list td {
+  padding: 10px;
+  border-bottom: 1px solid var(--border-color);
+  text-align: center;
   font-size: 13px;
-  text-transform: uppercase;
-  display: inline-block;
-  transition: color .2s;
-}
-.menu-main a, .menu-main a:visited {color: #ffffff;}
-.menu-main a.current, .menu-main a:hover{color: #959494;}
-.menu-main a:before,
-.menu-main a:after {
-  content: "";
-  position: absolute;
-  height: 2px;
-  top: auto;
-  right: 50%;
-  bottom: -5px;
-  left: 50%;
-  background: #ffffff;
-  transition: .8s;
+  color: var(--text-color);
 }
 
-@media (max-width: 550px) {
-.menu-main {padding-top: 0;}
-.menu-main li {display: block;}
-.menu-main li:after {content: none;}
-.menu-main a {
-  padding: 25px 0 20px; 
-  margin: 0 30px;
-}
+.components-list tr:last-child td {
+  border-bottom: none;
 }
 
-
-/* Модальное окно */
-
-.edit_component {
-  display: block;
-  margin-bottom: 0.25rem;
-  font-size: 14px; 
+/* ===== Важное изменение: курсор pointer при наведении на строку ===== */
+.components:hover {
+  cursor: pointer;
+  background-color: rgba(125, 18, 18, 0.03);
 }
 
-.input-style {
-  display: block;
-  width: 100%;
-  padding: 0.5rem 0.5rem; 
-  font-family: Verdana, Geneva, Tahoma, sans-serif;
-  font-size: 12px; 
-  line-height: 1.3; 
-  background-color: #fff;
-  border: 1px solid #ccc;
-  border-radius: 0.25rem;
-  appearance: none;
-}
-
-.input-style:focus {
-  color: #212529;
-  background-color: #fff;
-  outline: 0;
-  box-shadow: 0 0 0 0.2rem rgba(0, 123, 255, 0.25);
-}
-
-.input-style:disabled {
-  background-color: #f1f1f1;
-  opacity: 0.7;
-  color: #000000db;
-}
-
-.input-text {
-  position: relative;
-  margin-bottom: 0px;
-}
-
-.input-text .input-style {
-  border: none;
-  border-bottom: 1px solid #bdbdbd;
-  background-color: #f5f5f5;
-  height: 3,5rem; 
-}
-
-.input-text .input-style:focus {
-  outline: 0;
-  border-bottom: 1px solid #7d1212db;
-}
-
-.input-text .edit_component {
-  position: absolute;
+/* ===== Модальное окно (исправленная версия) ===== */
+.modal-fade {
+  position: fixed;
   top: 0;
   left: 0;
-  height: 100%;
-  padding: 1rem .50rem;
-  pointer-events: none;
-  color: #7d1212db;
-}
-
-.input-text .input-style:focus,
-.input-text .input-style:not(:placeholder-shown) {
-  padding-top: 1.625rem;
-  padding-bottom: .625rem;
-  border-bottom: 1px solid #7d1212db;
-}
-
-.input-text .input-style:focus~.edit_component,
-.input-text .input-style:not(:placeholder-shown)~.edit_component {
-  transform: scale(.85) translateY(-.75rem) translateX(.15rem);
-}
-
-
-/*/Кнопка, закрывающая окно, крестик*/
-.closeModal {
-	position: absolute;
   right: 0;
-  top: 0;
-	opacity: 0.2;
-  width: 30px;
-  height: 30px;
-  font-size: 20px;
-  border: 0;
-  background-color: transparent;
-	cursor: pointer;
-    transition: opacity ease 0.5s;
-	&:hover {
-		opacity: 1;
-	}
+  bottom: 0;
+  background: rgba(41, 41, 41, 0.7);
+  display: none; /* По умолчанию скрыто */
+  justify-content: center;
+  align-items: center;
+  z-index: 1050; /* Должен быть выше других элементов */
+  overflow-y: auto;
+  padding: 20px;
+  display: flex;
+}
+
+.modal-dialog {
+  background: #ffffff;
+  border-radius: 12px;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+  width: 100%;
+  max-width: 700px;
+  max-height: calc(100vh - 40px);
+  overflow: auto;
+  margin: auto;
+  position: relative;
+  padding: 1rem 1rem; /* Внутренние отступы для контента */
+}
+
+.modal-content {
+  padding: 0;
+  position: relative;
+}
+
+.modal-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding-bottom: 1rem;
+  margin-bottom: 1rem;
+  border-bottom: 1px solid #e0e0e0;
+}
+
+.modal-header h3,
+.modal-header .modal-title {
+  margin: 0;
+  color: #7d1212db;
+  font-size: 18px;
+  font-weight: 600;
+}
+
+.closeModal {
+  background: none;
+  border: none;
+  font-size: 1.5rem;
+  cursor: pointer;
+  color: #333131;
+  transition: all 0.3s ease;
+  border-radius: 50%;
+  width: 36px;
+  height: 36px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: absolute;
+  right: 0px;
+  top: 0px;
 }
 
 .modal-sure {
@@ -202,139 +164,224 @@ border-collapse: collapse;
   position: fixed; top: 50%; left: 50%;
   transform: translate(-50%, -50%);
   display: block;
+  z-index: 2000;
 }
 
-/*Кнопка добавить*/
-.add-item {
-  background-color: transparent;
-  float: right;
-  margin-top: 5px;
+
+.closeModal:hover {
+  background: rgba(0, 0, 0, 0.05);
   color: #7d1212db;
-  font-family: Verdana, Geneva, Tahoma, sans-serif;
+}
+
+/* ===== Кнопки (упрощенная версия) ===== */
+.modal-btn {
+  padding: 12px 24px;
+  border-radius: 8px;
+  font-size: 1rem;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  border: none;
+  font-weight: 500;
+  display: inline-block;
+  text-align: center;
+}
+
+
+.input-field,
+.input-style {
+  width: 100%;
+  padding: 2px 10px;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+  font-size: 13px;
+  transition: all 0.3s ease;
+  background: #f5f5f5;
+  box-sizing: border-box;
+}
+
+.input-text {
+  display: flex;
+  flex-direction: column;
+  margin-bottom: 0.rem; /* сохраним отступ */
+}
+
+.edit_component {
+  color: #7d1212db;
+  font-weight: 500;
+}
+
+.input-label {
+  display: block;
+  margin-bottom: 0.5rem;
+  color: #7d1212db;
+  font-weight: 500;
+  font-size: 0.9rem;
+}
+
+.input-field {
+  width: 100%;
+  padding: 10px;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  font-size: 1rem;
+  background: #f5f5f5;
+}
+
+.input-field:focus {
+  outline: none;
+  border-color: #7d1212db;
+  box-shadow: 0 0 0 3px rgba(125, 18, 18, 0.2);
+  background: white;
+}
+
+/* ===== Меню ===== */
+.menu-main {
+  background: var(--primary-color);
+  padding: 1rem 2rem;
+  margin-bottom: 10px;
+  border-radius: 8px;
+  box-shadow: var(--shadow);
+}
+
+.menu-main ul {
+  display: flex;
+  gap: 1.5rem;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.menu-main a {
+  color: var(--white);
+  font-size: 16px;
+  position: relative;
+  padding: 0.5rem 0;
+  transition: var(--transition);
+}
+
+.menu-main a::after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 0;
+  height: 2px;
+  background: var(--white);
+  transition: var(--transition);
+}
+
+.menu-main a:hover::after {
+  width: 100%;
+}
+
+/* ===== Выпадающее меню ===== */
+.dropdown {
+  position: relative;
+}
+
+.dropdown-content {
+  position: absolute;
+  top: 100%;
+  left: 0;
+  background: var(--white);
+  min-width: 200px;
+  box-shadow: var(--shadow-hover);
+  border-radius: 8px;
+  z-index: 1000;
+  opacity: 0;
+  visibility: hidden;
+  transform: translateY(10px);
+  transition: all 0.3s ease;
+}
+
+.dropdown:hover .dropdown-content {
+  opacity: 1;
+  visibility: visible;
+  transform: translateY(0);
+}
+
+.dropdown-content a {
+  color: var(--text-color);
+  padding: 0.75rem 2rem;
+  display: block;
+  transition: var(--transition);
+}
+
+.dropdown-content a:hover {
+  background: var(--light-gray);
+  color: var(--primary-color);
+}
+
+.add_button{
+  padding: 3px 10px;
+  border-radius: 3px;
   font-size: 14px;
   cursor: pointer;
-  border: 0px;
-}
-
-.add-item:hover{
-  background-color: #f1f1f1;
-}
-
-/* создание реактива*/
-
-.modal-fade {
-  background: rgba(255, 255, 255, 0.5); 
-  border: 3px solid rgb(53, 53, 53);
-  position: fixed;
-  top: 0;
-  bottom: 0;
-  right: 0;
-  left: 0;
-  overflow: auto; 
-  display: flex;
-  justify-content: center;
-  align-items: flex-start; 
-  padding: 20px 10px; 
-}
-
-.modal-dialog {
-  position: relative;
-  width: 550px; 
-  margin: auto 0; 
-  background-color: white;
-  border-radius: 10px; 
-  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
-  display: flex;
-  flex-direction: column;
-  max-height: calc(100vh - 40px); 
-}
-
-.modal-content {
-  position: relative;
-  background-color: #ffffff;
-  border: 1px solid rgba(0, 0, 0, 0.1);
-  border-radius: .3rem;
-  display: flex;
-  flex-direction: column;
-  max-height: inherit; 
-  overflow: visible; 
-}
-
-.modal-header {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  padding: 10px 15px;
-  font-size: 18px;
-  border-bottom: 1px solid #eceeef;
-  flex-shrink: 0;
-  gap: 0px; 
-}
-
-.modal-header-buttons {
-  display: flex;
-  gap: 50px; 
-  margin: auto; 
-}
-
-.editStatus {
-  background-color: #7d1212e0;
-  border-radius: 5px;
   border: none;
-  color: white;
-  padding: 8px 12px; 
+  font-weight: 300;
   text-align: center;
-  cursor: pointer;
-  font-size: 12px; 
-  font-family: Verdana, Geneva, Tahoma, sans-serif;
-  white-space: nowrap;
-  margin: 0;
-  transition: background-color 0.2s; 
-}
-
-
-.modal-body {
-  position: relative;
-  padding: 10px 10px;
-  flex-grow: 1;
-  overflow-y: auto; 
-  min-height: 0; 
-}
-
-.add_button {
-  margin: 10px auto 0; 
   background-color: #7d1212db;
-  border-radius: 5px;
-  border-color: transparent;
-  color: white;
-  padding: 8px 12px;
-  text-align: center;
-  text-decoration: none;
-  cursor: pointer;   
-  width: 500px;  
-  font-size: 12px; 
-  font-family: Verdana, Geneva, Tahoma, sans-serif;
+  color: #ffffff;
+  
 }
 
-.btn-disabled {
-  background-color: #d3d3d3;  
-  color: #a1a1a1; 
-  cursor: not-allowed;  
-  opacity: 0.6; 
+.add_button:hover{
+  background-color: #680f0fdb;
+  
 }
 
-.add_cancel_button {
-  margin: 10px auto 1px;
-  background-color: rgba(53, 54, 53, 0.747);
-  border-radius: 5px;
-  border-color: transparent;
-  color: white;
-  padding: 8px 12px;
+.footer-btn{
+  display: flex;          
+  gap: 10px;             
+  align-items: center;   
+  flex-wrap: wrap; 
+  padding: 20px 10px 1px 0px;
+}
+
+.add_cancel_button{
+  padding: 2px 10px;
+  border-radius: 3px;
+  font-size: 14px;
+  cursor: pointer;
+  border: 0.5px solid #555555;
+  font-weight: 300;
   text-align: center;
-  text-decoration: none;
-  cursor: pointer;   
-  width: 500px;  
-  font-size: 12px;  
-  font-family: Verdana, Geneva, Tahoma, sans-serif;
+  background-color: #ffffffdb;
+  color: #555555;
+}
+
+.add_cancel_button:hover{
+  background-color: #505050db;
+  color: #ffffff;
+}
+
+
+/* ===== Адаптивность ===== */
+@media (max-width: 768px) {
+  #app {
+    padding: 1rem;
+  }
+  
+  .section-name {
+    font-size: 1.5rem;
+  }
+  
+  .menu-main ul {
+    flex-direction: column;
+    gap: 0.5rem;
+  }
+  
+  .modal-dialog {
+    width: 95%;
+    margin: 0 auto;
+  }
+  
+  .button-group {
+    flex-direction: column;
+  }
+  
+  .btn {
+    width: 100%;
+  }
 }
 

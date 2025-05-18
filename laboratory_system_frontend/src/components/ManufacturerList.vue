@@ -109,23 +109,3 @@
     }
 </script>
 
-<style scoped>
-div {
-    text-align: center;
-    text-decoration: none;
-    letter-spacing: 2px;
-    font-size: 17px;
-    transition: color .2s;
-}
-
-
-td {
-	padding: 10px;
-	font-size: 14px;
-	line-height: 10px;
-	color: #444441;
-	border-top: 1px solid #716561;
-}
-
-</style>
-

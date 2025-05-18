@@ -55,18 +55,3 @@
     }
 </script>
 
-
-<style>
-  td {
-	padding: 10px;
-	font-size: 14px;
-	line-height: 10px;
-	color: #444441;
-	border-top: 1px solid #716561;
-}
-    .components:hover {
-    background: #bcbcbc6e;
-    cursor: pointer;
-}
-
-</style>

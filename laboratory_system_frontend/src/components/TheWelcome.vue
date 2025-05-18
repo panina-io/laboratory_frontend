@@ -30,14 +30,6 @@ export default {
 </script>
 
 <style scoped>
-div {
-    text-align: center;
-    text-decoration: none;
-    letter-spacing: 2px;
-    font-size: 17px;
-    text-transform: uppercase;
-    transition: color .2s;
-}
 
 p {
   font-size: 36px;

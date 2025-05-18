@@ -3,7 +3,8 @@
       <div class="modal-dialog" role="document">
         <div class="modal-content">
           <div class="modal-header">
-            <h5>Добавление реактива</h5>
+            <h5 class="modal-title">Добавление реактива</h5>
+            <button class="closeModal" @click="onCancel">X</button>
           </div>
   
           <div class="modal-body">
@@ -12,68 +13,69 @@
                 <div v-if="errorMessage" class="error-message">{{ errorMessage }}</div>
                 <div class="input-text"
                     :class="{ 'input-error': validationErrors.lot }">
-                  <input class="input-style" v-model.lazy.trim="lot" required />
                   <label class="edit_component">Лот</label>
+                  <input class="input-style" v-model.lazy.trim="lot" required />
                 </div>
   
                 <div class="input-text" :class="{ 'input-error': validationErrors.indicator }">
+                  <label class="edit_component">Показатель</label>
                   <select v-model="indicator" class="input-style" required>
                     <option value=""></option>
                     <variants name="indicators" :selected="indicator" />
                   </select>
-                  <label class="edit_component">Показатель</label>
                 </div>
   
                 <div class="input-text" :class="{ 'input-error': validationErrors.manufacturer }">
+                  <label class="edit_component">Производитель</label>
                   <select v-model="manufacturer" class="input-style" required>
                     <option value=""></option>
                     <variants name="manufacturers" :selected="manufacturer" />
                   </select>
-                  <label class="edit_component">Производитель</label>
                 </div>
   
                 <div class="input-text" :class="{ 'input-error': validationErrors.analyzer}">
+                  <label class="edit_component">Анализатор</label>
                   <select v-model="analyzer" class="input-style" required>
                     <option value=""></option>
                     <variants name="analyzer_models" :selected="analyzer" />
                   </select>
-                  <label class="edit_component">Анализатор</label>
                 </div>
   
                 <div class="input-text" :class="{ 'input-error': validationErrors.financing}">
+                  <label class="edit_component">Источник финансирования</label>
                   <select v-model="financing" class="input-style" required>
                     <option value=""></option>
                     <variants name="financing" :selected="financing" />
                   </select>
-                  <label class="edit_component">Источник финансирования</label>
                 </div>
   
                 <div class="input-text" :class="{ 'input-error': validationErrors.expiration_date }">
-                  <input class="input-style" type="date" :min="today" v-model="expiration_date" required />
                   <label class="edit_component">Срок годности</label>
+                  <input class="input-style" type="date" :min="today" v-model="expiration_date" required />
                 </div>
 
                 <div class="input-text" :class="{ 'input-error': validationErrors.balance}">
-                  <input class="input-style" type="number" min="0" v-model="balance" required />
                   <label class="edit_component">Количество</label>
+                  <input class="input-style" type="number" min="0" v-model="balance" required />
                 </div>
   
                 <div class="input-text" :class="{ 'input-error': validationErrors.sink }">
+                  <label class="edit_component">Холодильник</label>
                   <select v-model="sink" class="input-style" required>
                     <option value=""></option>
                     <technic-variants name="refrigerators" :selected="sink" />
                   </select>
-                  <label class="edit_component">Холодильник</label>
                 </div>
 
                 <div class="input-text">
-                  <input class="input-style" v-model.lazy.trim="note" />
                   <label class="edit_component">Комментарий</label>
+                  <input class="input-style" v-model.lazy.trim="note" />
                 </div>
-
+                <div class="footer-btn">
                 <button type="button" class="add_button" @click="onSave">Сохранить</button>
                 <button type="button" class="add_cancel_button" @click="$emit('cancel_add')">Отмена</button>
-              </div>            
+              </div>   
+            </div>         
             </form>
           </div>
         </div>
@@ -188,6 +190,7 @@
     color: #7d1212db;
     font-size: 16px;
   }
+
   </style>
   
   
