@@ -1,24 +1,24 @@
 <template>
-    <div class="container">
-        <div class="header-container">
-            <h1 class="section-name">Анализаторы
-                <button class="add-item" @click="Add">+Добавить</button>
-            </h1>
-        </div>
-    <analyzer-add-form v-if="add_mode" @cancel_add="cancel_add" @add_item="add_item"/>
-    <div class="table-container">
+    <div>
+    <h1 class="section-name">
+        Модели холодильников
+        <button class="add-item" @click="Add">
+            +Добавить
+        </button>
+    </h1>
+    <refrigerator-models-add-form v-if="add_mode" @cancel_add="cancel_add" @add_item="add_item"/>
     <table class="components-list">
-        <thead>
-            <tr class="table-header">
-                <th class="head">
-                    Наименование
-                </th>
-                <th class="head">
-                    Примечание
-                </th>
-            </tr>
-          </thead>
-        <analyzers-component
+    <thead>
+        <tr class="table-header">
+            <th class="head">
+                Модель
+            </th>
+            <th class="head">
+                Примечание
+            </th>
+          </tr>
+        </thead>
+        <refrigerator-models-component
                 v-for="item in items"
                     :id="item.id"
                     :name="item.name"
@@ -26,17 +26,17 @@
                     @edit_item="edit_item"
                     @delete_item="delete_item"/>
         </table>
-    </div>
 </div>
 </template>
 
 <script>
-import AnalyzersComponent from './AnalyzersComponent.vue';
-import AnalyzerAddForm from './AnalyzerAddForm.vue';
+import RefrigeratorModelsComponent from './RefrigeratorModelsComponent.vue';
+import RefrigeratorModelsAddForm from './RefrigeratorModelsAddForm.vue';
+
     export default{
         components: {
-            AnalyzersComponent, 
-            AnalyzerAddForm
+            RefrigeratorModelsComponent, 
+            RefrigeratorModelsAddForm
         },
         data(){
             return {
@@ -47,7 +47,7 @@ import AnalyzerAddForm from './AnalyzerAddForm.vue';
         methods: {
             async getData(){
                 try{
-                    const response = await this.$http.get("analyzer_models/", {headers: {authorization: `Bearer ${localStorage.access_token}`}})
+                    const response = await this.$http.get("refrigerator_models/", {headers: {authorization: `Bearer ${localStorage.access_token}`}})
                     this.items = response.data
                 }
                 catch(error){
@@ -56,7 +56,7 @@ import AnalyzerAddForm from './AnalyzerAddForm.vue';
             },
             async editData(id, name, note){
                 try{
-                    await this.$http.put("analyzer_models/"+id+"/",{
+                    await this.$http.put("refrigerator_models/"+id+"/",{
                         name: name, note: note}, {headers: {
                         authorization: `Bearer ${localStorage.access_token}`
                     }})
@@ -67,7 +67,7 @@ import AnalyzerAddForm from './AnalyzerAddForm.vue';
             },
             async addData(name, note) {
                 try {
-                    await this.$http.post('analyzer_models/', {
+                    await this.$http.post('refrigerator_models/', {
                         name: name,
                         note: note,
                     },{headers: {authorization: `Bearer ${localStorage.access_token}`}});
@@ -77,7 +77,7 @@ import AnalyzerAddForm from './AnalyzerAddForm.vue';
             },
             async deleteData(id){
                 try{
-                    await this.$http.delete("analyzer_models/"+id+"/")
+                    await this.$http.delete("refrigerator_models/"+id+"/")
                 }
                 catch(error){
                     console.log(error)
@@ -111,5 +111,4 @@ import AnalyzerAddForm from './AnalyzerAddForm.vue';
         }
     }
 </script>
-
 

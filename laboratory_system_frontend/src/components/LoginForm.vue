@@ -26,7 +26,6 @@
     <div>
         <button type="button" class="auth" form="login_form" @click="onLogin">Вход</button>
     </div>
-        <button type="button" class="auth" form="login_form" @click="onCancel">Отмена</button>
       </form>
     </div>
   </template>
@@ -47,9 +46,6 @@
           })
         this.$router.push("/")
       },
-      onCancel (){
-        this.$router.push("/")
-      }
     }
   }
   </script>
@@ -69,6 +65,7 @@
     border-radius: 5px;
     position: fixed; top: 40%; left: 50%;
     transform: translate(-50%, -50%);
+    box-shadow: 0 5px 10px rgba(0, 0, 0, 0.2);
   }
 
   .auth {

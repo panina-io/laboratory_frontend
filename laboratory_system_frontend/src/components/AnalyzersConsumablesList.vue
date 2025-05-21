@@ -1,7 +1,7 @@
 <template>
     <div class="container">
         <div class="header-container">
-            <h1 class="section-name">Расходники анализаторов
+            <h1 class="section-name">Расходники для анализаторов
                 <button class="add-item" @click="Add">+Добавить</button>
             </h1>
             <div class="table-actions">
@@ -17,7 +17,7 @@
             </button>
         </div>
 
-        <reagent-lot-add-form
+        <analyzers-consumables-add-form
             v-if="add_mode"
             @cancel_add="cancel_add"
             @add_item="add_item"
@@ -27,8 +27,8 @@
             <table class="components-list">
                 <thead>
                     <tr class="table-header">
-                        <th class="head" style="cursor: pointer;" @click="sortBy('box__indicator__name')">Тип  
-                            <span v-if="sortKey === 'box__indicator__name'">
+                        <th class="head" style="cursor: pointer;" @click="sortBy('box__cons_type__name')">Тип 
+                            <span v-if="sortKey === 'box__cons_type__name'">
                             {{ sortOrder === 'asc' ? '↑' : '↓' }}
                             </span>
                         </th>
@@ -54,9 +54,9 @@
                     </tr>
                     <tr class="filter-row">
                         <th class="head-filter">
-                            <select class="filters" v-model="filters.indicator" @change="getData">
-                                <option value="">Показатель</option>
-                                <variants name="indicators" :selected="indicator" />
+                            <select class="filters" v-model="filters.cons_type" @change="getData">
+                                <option value="">Тип</option>
+                                <variants name="consumables_type" :selected="cons_type" />
                             </select>
                         </th>
                         <th class="head-filter">
@@ -119,9 +119,9 @@
 
 <script>
 import AnalyzersConsumablesComponent from './AnalyzersConsumablesComponent.vue';
-import AnalyzersConsumablesAddForm from './AnalyzersConsumablesAddForm.vue';
 import Variants from './Variants.vue';
 import TechnicVariants from './TechnicVariants.vue'
+import AnalyzersConsumablesAddForm from './AnalyzersConsumablesAddForm.vue';
 
 export default {
     components: {
@@ -138,7 +138,7 @@ export default {
             filters: {
                 lot: '',
                 manufacturer: '',
-                indicator: '',
+                cons_type: '',
                 move: '',
                 balance_op: '',
                 balance_value: '',
@@ -181,7 +181,7 @@ export default {
                 const params = {};
                 if (this.filters.lot) params.box__lot = this.filters.lot;
                 if (this.filters.manufacturer) params.box__manufacturer = this.filters.manufacturer;
-                if (this.filters.indicator) params.box__indicator = this.filters.indicator;
+                if (this.filters.cons_type) params.box__cons_type = this.filters.cons_type;
                 if (this.filters.sink) params.sink = this.filters.sink;
 
                 if (this.filters.balance_op || this.filters.balance_value !== '') {
@@ -199,7 +199,7 @@ export default {
                     params.ordering = this.sortOrder === 'asc' ? this.sortKey : `-${this.sortKey}`;
                 }
 
-                const response = await this.$http.get("reagent_move/", {
+                const response = await this.$http.get("analyzersconsumables_move/", {
                     headers: { Authorization: `Bearer ${localStorage.access_token}` },
                     params
                 });
@@ -212,7 +212,7 @@ export default {
         },
         async editData(box_id, new_expenditure, new_balance, new_move, new_source, new_sink, new_note) {
             try {
-                await this.$http.post("reagent_move/",
+                await this.$http.post("analyzersconsumables_move/",
                     {
                         box: box_id,
                         expenditure: new_expenditure,
@@ -224,7 +224,7 @@ export default {
                         headers: { authorization: `Bearer ${localStorage.access_token}` }
                     }
                 );
-                await this.$http.patch(`reagents_lot/${box_id}/`, {
+                await this.$http.patch(`analyzersconsumables_lot/${box_id}/`, {
                     balance: new_balance, note: new_note
                 }, {
                     headers: { authorization: `Bearer ${localStorage.access_token}` }
@@ -257,7 +257,7 @@ export default {
             this.filters = { 
                 lot: '', 
                 manufacturer: '', 
-                indicator: '' ,
+                cons_type: '' ,
                 move: '',
                 balance_op: '',
                 balance_value: '',
@@ -287,82 +287,3 @@ export default {
 }
 </script>
 
-<style scoped>
-
-.action-buttons {
-    display: flex;
-    gap: 10px;
-}
-
-.add-item {
-    padding: 5px 10px;
-    background-color: #7d1212db;
-    color: white;
-    border: none;
-    border-radius: 4px;
-    cursor: pointer;
-    font-size: 14px;
-}
-
-.add-item:hover {
-    background-color: #9a2a2a;
-}
-
-.section-btn {
-    padding: 10px 20px;
-    font-size: 15px;
-    color: #555;
-    background-color: white;
-    border: 1px solid #ddd;
-    border-bottom: none;
-    border-top-left-radius: 4px;
-    border-top-right-radius: 4px;
-    cursor: pointer;
-    position: relative;
-    top: 1px;
-    margin-right: 5px;
-    transition: all 0.2s;
-}
-
-.section-btn.active {
-    background-color: #f5f5f5;
-
-    color: #7d1212db;
-    font-weight: bold;
-}
-
-.table-header {
-    background-color: #f8f8f8;
-}
-
-
-.filters {
-    width: auto;
-    display: inline-block;
-    background-color: #fff;
-    color: #333;
-    font-size: 13px;
-    border: 1px solid #ddd;
-    border-radius: 3px;
-    padding: 6px 4px;
-    box-sizing: border-box;
-}
-
-
-.filters:focus {
-    outline: none;
-    border-color: #7d1212db;
-}
-
-input[type="number"].filters {
-    width: 75px;
-}
-
-.table-actions {
-    position: absolute;
-    right: 40px;
-    z-index: 10;
-    display: flex;
-    gap: 10px;
-}
-</style>

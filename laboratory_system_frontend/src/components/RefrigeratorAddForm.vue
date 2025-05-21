@@ -3,19 +3,36 @@
         <div class="modal-dialog" role="document">
             <div class="modal-content"> 
                 <div class="modal-header">
-                    <h5 class="modal-title">Новое помещение</h5>
+                    <h5 class="modal-title">Новый холодильник</h5>
                 </div>
                 <div class="modal-body">
                     <form id="EditForm">
                     <div class="input-text">
-                        <label class="edit_component">Наименование*</label>
+                        <label class="edit_component">Инвентарный номер*</label>
                        <input class="input-style"
                         form="EditForm"
                         rows="1"
                         cols="17"
-                        v-model.lazy.trim="name"
+                        v-model.lazy.trim="inventory_number"
                         required>
                     </div>
+
+                    <div class="input-text">
+                        <label class="edit_component">Модель</label>
+                        <select v-model="model" :key="tmp" class="input-style" required>
+                            <option value=""></option>
+                            <variants name="refrigerator_models" :selected="model" />
+                        </select>
+                    </div>
+
+                    <div class="input-text">
+                        <label class="edit_component">Помещение</label>
+                        <select v-model="room" :key="tmp" class="input-style" required>
+                            <option value=""></option>
+                            <variants name="rooms" :selected="room" />
+                        </select>
+                    </div>
+
                     <div class="input-text">
                         <label class="edit_component">Комментарий</label>
                        <input
@@ -38,13 +55,15 @@
 </template>
 
 <script>
+    import Variants from './Variants.vue'
     export default{
+        components: { Variants },
         data() {
-            return {name: "", note: ""}
+            return {inventory_number: "", model: null, room: null, note: ""}
         },
         methods: {
             onSave() {
-                this.$emit("add_item", this.name, this.note)
+                this.$emit("add_item", this.inventory_number, this.model, this.room, this.note)
             },
             onCancel() {
                 this.$emit("cancel_add")

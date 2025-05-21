@@ -5,7 +5,7 @@
     </h1>
     <table class="components-list">
         <thead>
-        <tr>
+        <tr class="table-header">
             <th class="head">
                 Тип расходника
             </th>

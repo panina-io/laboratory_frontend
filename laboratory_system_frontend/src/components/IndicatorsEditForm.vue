@@ -9,34 +9,26 @@
                 <div class="modal-body">
                     <form id="EditForm">
                     <div class="input-text">
+                        <label class="edit_component">Наименование</label>
                        <input class="input-style"
                         form="EditForm"
                         rows="1"
                         cols="17"
                         v-model.lazy.trim="new_name">
-                        <label class="edit_component">Наименование</label>
                     </div>
                     <div class="input-text">
+                        <label class="edit_component">Комментарий</label>
                        <input
                         class="input-style"
                         form="EditForm"
                         rows="1"
                         cols="17"
                         v-model.lazy.trim="new_note"/>
-                        <label class="edit_component">Комментарий</label>
                     </div>
-                    <button 
-                        type="button"
-                        form="EditForm"
-                        class="add_button"
-                        title="Сохранить"
-                        @click="onSave">Сохранить</button>
-                    <button 
-                        type="button"
-                        class="add_cancel_button"
-                        form="EditForm"
-                        title="Отменить"
-                        @click="modalDelete">Удалить</button>
+                    <div class="footer-btn">
+                        <button type="button" class="add_button" @click="onSave">Сохранить</button>
+                        <button type="button" class="add_cancel_button" @click="modalDelete">Удалить</button>
+                    </div> 
                     </form> 
                 </div>
             </div>

@@ -4,7 +4,8 @@
         Журнал движения реактивов
     </h1>
     <table class="components-list">
-        <tr>
+        <thead>
+        <tr class="table-header">
             <th class="head">
                 Показатель
             </th>
@@ -24,6 +25,7 @@
                 Дата изменения
             </th>
           </tr>
+        </thead>
         <reagent-move-component
                 v-for="item in items"
                     :item="item"/>

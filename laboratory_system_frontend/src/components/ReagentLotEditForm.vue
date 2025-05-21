@@ -3,18 +3,20 @@
         <div class="modal-dialog" role="document">
             <div class="modal-content"> 
                 <div class="modal-header">
-                    <h5 class="modal-title">Карточка реактива</h5>
+                    <div class="modal-title-wrapper">
+                        <h3 class="modal-title">Карточка реактива</h3>
+                        <div class="modal-header-buttons">
+                            <button class="edit-status-open" 
+                                @click="editStatusOpen"         
+                                :disabled="isOpen || isEndStatus"
+                                :class="{'btn-disabled': isOpen || isEndStatus}">Открыть</button>
+                            <button class="edit-status-end" 
+                                @click="editStatusEnd"         
+                                :disabled="isEndStatus"
+                                :class="{'btn-disabled': isEndStatus}">Списать</button>
+                        </div>
+                    </div>
                     <button class="closeModal" @click="onCancel">X</button>
-                    <div class="modal-header-buttons">
-                    <button class="editStatus" 
-                            @click="editStatus"         
-                            :disabled="isOpen || isEndStatus"
-                            :class="{'btn-disabled': isOpen || isEndStatus}">Открыть</button>
-                    <button class="editStatus" 
-                            @click="editStatus"         
-                            :disabled="isEndStatus"
-                            :class="{'btn-disabled': isEndStatus}">Списать</button>
-                </div>
                 </div>
                 <div class="modal-body">
                     <form id="EditForm">
@@ -76,15 +78,14 @@
                             v-model="new_expenditure"
                             @input="onExpenditureChange"
                         />
-
                     </div>
 
               <div class="input-text">
                 <label class="edit_component">Холодильник</label>
                 <select 
                     v-model="new_sink" 
-                    class="input-style" 
-                    required>
+                    class="input-style">
+                        <option value=""></option>
                         <technic-variants name="refrigerators" :selected="item.sink" />
                 </select>
 
@@ -116,12 +117,20 @@
             </div>
         </div>
     </div>
+    <div v-if="this.open_mode || this.end_mode" class="modal-sure" style="text-align: center; font-size: 20px;">
+      <h3 class="auth-text">Вы уверены, что хотите {{ this.status_message }} лот {{ item.box_data.lot }} ({{ item.box_data.manufacturer_name }}, {{ item.box_data.indicator_name }})?</h3>
+      <div>
+        <button type="button" class="auth" form="login_form" @click="onSave" style="background-color:#7d1212db;">{{ this.status_message }}</button>
+    </div>
+        <button type="button" class="auth" form="login_form" @click="onCancel" style="background-color: rgba(53, 54, 53, 0.747);">Отмена</button>
+    </div>
 </template>
 
 <script>
 import Variants from './Variants.vue'
 import TechnicVariants from './TechnicVariants.vue'
 import dayjs from 'dayjs'
+
     export default{
         components: { Variants, TechnicVariants },
         props: {
@@ -139,6 +148,9 @@ import dayjs from 'dayjs'
                     isExpenditureValid: true,
                     isOpen: false,
                     isEndStatus: false,
+                    open_mode: false,
+                    end_mode: false,
+                    status_message: ''
                 }
         },
         emits: ['edit_item'],
@@ -158,6 +170,14 @@ import dayjs from 'dayjs'
                 }
                 if (new_balance == 0) {
                     this.new_move = 'disposed'
+                }
+                if (this.open_mode) {
+                    this.new_move = 'open'
+                    this.open_mode = false
+                }
+                if (this.end_mode) {
+                    this.new_move = 'disposed'
+                    this.end_mode = false
                 }
                 this.$emit("edit_item", this.box_id, this.new_expenditure, new_balance, this.new_move, this.new_source, this.new_sink, this.new_note)
             },
@@ -189,20 +209,17 @@ import dayjs from 'dayjs'
             formatDate(date) {
                 return dayjs(date).format('DD.MM.YYYY HH:mm');
                 },
+            editStatusOpen() {
+                this.open_mode = true
+                this.status_message = 'Открыть'
+            },
+            editStatusEnd() {
+                this.end_mode = true
+                this.status_message = 'Списать'
+            },
         },
         mounted() {
             this.statusCheck()
         }
     }
 </script>
-
-<style scoped>
-
-    .footer-btn{
-        display: flex;          
-        gap: 10px;             
-        align-items: center;   
-        flex-wrap: wrap; 
-    }
-
-</style>

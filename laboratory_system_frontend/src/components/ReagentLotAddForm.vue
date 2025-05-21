@@ -4,7 +4,7 @@
         <div class="modal-content">
           <div class="modal-header">
             <h5 class="modal-title">Добавление реактива</h5>
-            <button class="closeModal" @click="onCancel">X</button>
+            <button class="closeModal" @click="$emit('cancel_add')">X</button>
           </div>
   
           <div class="modal-body">
@@ -51,12 +51,15 @@
   
                 <div class="input-text" :class="{ 'input-error': validationErrors.expiration_date }">
                   <label class="edit_component">Срок годности</label>
-                  <input class="input-style" type="date" :min="today" v-model="expiration_date" required />
+                  <input class="input-style" type="date" :min="today" v-model="expiration_date" required/>
                 </div>
 
                 <div class="input-text" :class="{ 'input-error': validationErrors.balance}">
                   <label class="edit_component">Количество</label>
-                  <input class="input-style" type="number" min="0" v-model="balance" required />
+                  <input class="input-style" type="number" min="0" v-model.number="balance" required @change="validateBalance"/>
+                  <span v-if="validationErrors.balance" class="balance-error">
+                    Количество должно быть не меньше 1
+                  </span>
                 </div>
   
                 <div class="input-text" :class="{ 'input-error': validationErrors.sink }">
@@ -98,11 +101,11 @@
         financing: null,
         expiration_date: '',
         note: '',
-        balance: '',
+        balance: null,
         sink: null,
         expenditure: null,
         validationErrors: {},
-        errorMessage: ''
+        errorMessage: '',
       }
     },
     computed: {
@@ -117,21 +120,24 @@
         let valid = true
   
         const requiredFields = ['lot', 'indicator', 'manufacturer', 'analyzer', 'financing', 'expiration_date', 'balance', 'sink']
-  
+        
         for (const field of requiredFields) {
           if (!this[field]) {
             this.validationErrors[field] = true
             valid = false
           }
         }
-  
-        if (!valid) {
-          this.errorMessage = 'Пожалуйста, заполните все обязательные поля.'
-        } else {
-          this.errorMessage = ''
+
+        if (this.balance !== '' && (Number(this.balance) < 1 || isNaN(Number(this.balance)))) {
+          this.validationErrors.balance = true
+          valid = false
         }
-  
+
+        if (!valid && !this.errorMessage) {
+            this.errorMessage = 'Пожалуйста, заполните все обязательные поля.'
+        }
         return valid
+        
       },
   
       async onSave() {
@@ -174,7 +180,17 @@
             }
           }
         }
+      },
+      validateBalance() {
+    if (this.balance !== '' && (Number(this.balance) < 1 || isNaN(Number(this.balance)))) {
+      this.validationErrors.balance = true
+    } else {
+      this.validationErrors.balance = false
+      if (this.errorMessage === 'Количество должно быть не меньше 1') {
+        this.errorMessage = ''
       }
+    }
+  },
     }
   }
   </script>

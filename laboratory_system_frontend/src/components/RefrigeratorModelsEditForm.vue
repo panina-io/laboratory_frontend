@@ -1,36 +1,21 @@
 <template>
-    <div class="modal-fade"  tabindex="-1" role="dialog" aria-hidden="true">
+    <div class="modal-fade"  tabindex="-1" role="dialog">
         <div class="modal-dialog" role="document">
             <div class="modal-content"> 
                 <div class="modal-header">
-                    <h5 class="modal-title">{{ item.inventory_number }}</h5>
                     <button class="closeModal" @click="onCancel">X</button>
+                    <h5 class="modal-title">{{ name }}</h5>
                 </div>
                 <div class="modal-body">
                     <form id="EditForm">
                     <div class="input-text">
-                        <label class="edit_component">Инвентарный номер</label>
+                        <label class="edit_component">Модель</label>
                        <input class="input-style"
                         form="EditForm"
                         rows="1"
                         cols="17"
-                        v-model.lazy.trim="new_inventory_number">
+                        v-model.lazy.trim="new_name">
                     </div>
-
-                    <div class="input-text">
-                        <label class="edit_component">Модель</label>
-                        <select v-model="new_model" :key="tmp" class="input-style" required>
-                            <variants name="refrigerator_models" :selected="item.model" />
-                        </select>
-                    </div>
-
-                    <div class="input-text">
-                        <label class="edit_component">Помещение</label>
-                        <select v-model="new_room" :key="tmp" class="input-style" required>
-                            <variants name="rooms" :selected="item.room" />
-                        </select>
-                    </div>
-
                     <div class="input-text">
                         <label class="edit_component">Комментарий</label>
                        <input
@@ -50,7 +35,7 @@
         </div>
     </div>
     <div v-if="isDelete" class="modal-sure" style="text-align: center; font-size: 20px;">
-      <h3 class="auth-text">Вы уверены, что хотите удалить холодильник {{ item.inventory_number }}?</h3>
+      <h3 class="auth-text">Вы уверены, что хотите удалить {{ name }}?</h3>
       <div>
         <button type="button" class="auth" form="login_form" @click="onDelete" style="background-color:#7d1212db;">Удалить</button>
     </div>
@@ -59,28 +44,31 @@
 </template>
 
 <script>
-import Variants from './Variants.vue'
     export default{
-        components: { Variants },
         props: {
-            item: {
-                type: Object,
-            },
-            tmp: {
+            id: {
                 type: Number,
+                required: true,
+            },
+            name: {
+                type: String,
+                required: true,
+            },
+            note: {
+                type: String,
+                required: false,
             }
         },
         data() {
-            return {new_inventory_number: this.item.inventory_number, 
-                    new_model: this.item.model,
-                    new_room: this.item.room,
-                    new_note: this.item.note, 
-                    isDelete: false
-                }
+            return {
+                new_name: this.name, 
+                new_note: this.note,
+                isDelete: false
+            }
         },
         methods: {
             onSave() {
-                this.$emit("edit_item", this.item.id, this.new_inventory_number, this.new_model, this.new_room, this.new_note)
+                this.$emit("edit_item", this.id, this.new_name, this.new_note)
             },
             onCancel() {
                 this.$emit("cancel_edit")
@@ -95,4 +83,3 @@ import Variants from './Variants.vue'
         }
     }
 </script>
-

@@ -8,14 +8,16 @@
     </h1>
     <indicators-add-form v-if="add_mode" @cancel_add="cancel_add" @add_item="add_item"/>
     <table class="components-list">
-        <tr>
-            <th class="head">
+        <thead>
+            <tr class="table-header">
+                <th class="head">
                 Наименование
             </th>
             <th class="head">
                 Примечание
             </th>
           </tr>
+          </thead>
         <indicators-component
                 v-for="item in items"
                     :id="item.id"

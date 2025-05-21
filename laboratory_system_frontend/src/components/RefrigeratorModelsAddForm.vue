@@ -3,12 +3,12 @@
         <div class="modal-dialog" role="document">
             <div class="modal-content"> 
                 <div class="modal-header">
-                    <h5 class="modal-title">Новое помещение</h5>
+                    <h5 class="modal-title">Новая модель холодильника</h5>
                 </div>
                 <div class="modal-body">
                     <form id="EditForm">
                     <div class="input-text">
-                        <label class="edit_component">Наименование*</label>
+                        <label class="edit_component">Модель*</label>
                        <input class="input-style"
                         form="EditForm"
                         rows="1"

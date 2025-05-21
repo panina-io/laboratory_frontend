@@ -1,12 +1,5 @@
 <template>
-  <div>
-    <div>
-      <div v-if="!isLoggedIn"> 
-        <router-link v-if="!isLoggedIn" :to="{name: 'login'}">Пожалуйста, авторизуйтесь</router-link>
-      </div>
-      <span v-else>Добро пожаловать, {{ userName }}</span>
-    </div>
-  </div>
+
 
 </template>
 

@@ -11,6 +11,7 @@ import ReagentMoveList from '@/components/ReagentMoveList.vue'
 import AnalyzelsList from '@/components/AnalyzelsList.vue'
 import AnalyzersConsumablesList from '@/components/AnalyzersConsumablesList.vue'
 import ConsumablesMoveList from '@/components/ConsumablesMoveList.vue'
+import RefrigeratorModelsList from '@/components/RefrigeratorModelsList.vue'
 
 
 const router = createRouter({
@@ -50,6 +51,11 @@ const router = createRouter({
       path: '/reagent_lots',
       name: 'reagent_lots',
       component: ReagentLotList,
+    },
+    {
+      path: '/refrigerator_models',
+      name: 'refrigerator_model',
+      component: RefrigeratorModelsList,
     },
     {
       path: '/refrigerators',
